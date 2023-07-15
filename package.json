@@ -1,0 +1,8 @@
+{
+  "name": "text-to-html-editor",
+  "version": "1.0.0",
+  "description": "Enter string and id of element, html valid article will be generated.",
+  "main": "index.js",
+  "author": "Lukas Matousek <matousek1199@gmail.com>",
+  "license": "MIT"
+}
