@@ -4,5 +4,6 @@
   "description": "Enter string and id of element, html valid article will be generated.",
   "main": "index.js",
   "author": "Lukas Matousek <matousek1199@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "https://github.com/matousek11/text-to-html-editor.git"
 }
