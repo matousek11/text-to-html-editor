@@ -11,7 +11,8 @@ export declare class ArticleGenerator {
     private appendAllElements;
     private appendImagesFromContainer;
     private appendText;
-    private findHeaders;
+    private findElements;
     private recognizeElements;
     private findParagraph;
+    private createParagraph;
 }
