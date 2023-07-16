@@ -1,7 +1,7 @@
 export class ElementsGenerator {
   // return small header element
   generateHeader(headerText: string) {
-    const header = document.createElement("h4");
+    const header = document.createElement("h2");
     header.textContent = headerText;
     return header;
   }
