@@ -80,12 +80,11 @@ class ArticleGenerator {
         //find headers
         let splitedText = newText.split(" ");
         let indexOfHeaders = this.findElements(newText, "#");
-        let indexOfAnchors = this.findElements(newText, "*");
         let firstPartOfText = splitedText.slice(0, indexOfHeaders[0]).join(" ");
         container.appendChild(this.createParagraph(firstPartOfText));
         // Append of all text
         indexOfHeaders.forEach((indexOfHeader, i) => {
-            let elementToAppend = this.recognizeElements(i, indexOfHeader, indexOfHeaders, indexOfAnchors, splitedText);
+            let elementToAppend = this.recognizeElements(i, indexOfHeader, indexOfHeaders, splitedText);
             container.appendChild(elementToAppend);
         });
     }
@@ -101,7 +100,7 @@ class ArticleGenerator {
             .filter((part) => part !== -1);
         return indexOfSearchedElements;
     }
-    recognizeElements(i, indexOfHeader, indexOfHeaders, indexOfAnchors, splitedText) {
+    recognizeElements(i, indexOfHeader, indexOfHeaders, splitedText) {
         if (i % 2 === 0 || i === 0) {
             // make header
             let nextHeaderText = splitedText
@@ -113,12 +112,12 @@ class ArticleGenerator {
         }
         else {
             // make paragraph
-            let paragraphElement = this.findParagraph(i, indexOfHeader, indexOfHeaders, indexOfAnchors, splitedText);
+            let paragraphElement = this.findParagraph(i, indexOfHeader, indexOfHeaders, splitedText);
             return paragraphElement;
         }
     }
     // find paragraph
-    findParagraph(i, indexOfHeader, indexOfHeaders, indexOfAnchors, splitedText) {
+    findParagraph(i, indexOfHeader, indexOfHeaders, splitedText) {
         if (i < indexOfHeaders.length - 1) {
             let nextParagraph = splitedText
                 .slice(indexOfHeader + 1, indexOfHeaders[i + 1])
@@ -136,15 +135,13 @@ class ArticleGenerator {
     }
     createParagraph(text) {
         let paragraph;
-        if (text.includes("*"))
+        if (!text.includes("*"))
             paragraph = this.elementsGenerator.generateParagraph(text);
         else {
             let splitedText = text.split("*");
-            let startsWithAnchor;
+            let startsWithAnchor = true;
             if (text[0] === "*")
                 startsWithAnchor = false;
-            else
-                startsWithAnchor = true;
             paragraph = this.elementsGenerator.generateParagraphWithAnchors(splitedText, startsWithAnchor);
         }
         return paragraph;

@@ -99,7 +99,6 @@ export class ArticleGenerator {
     //find headers
     let splitedText = newText.split(" ");
     let indexOfHeaders = this.findElements(newText, "#");
-    let indexOfAnchors = this.findElements(newText, "*");
 
     let firstPartOfText = splitedText.slice(0, indexOfHeaders[0]).join(" ");
     container.appendChild(this.createParagraph(firstPartOfText));
@@ -110,7 +109,6 @@ export class ArticleGenerator {
         i,
         indexOfHeader,
         indexOfHeaders,
-        indexOfAnchors,
         splitedText
       );
       container.appendChild(elementToAppend);
@@ -132,7 +130,6 @@ export class ArticleGenerator {
     i: number,
     indexOfHeader: number,
     indexOfHeaders: number[],
-    indexOfAnchors: number[],
     splitedText: string[]
   ) {
     if (i % 2 === 0 || i === 0) {
@@ -149,7 +146,6 @@ export class ArticleGenerator {
         i,
         indexOfHeader,
         indexOfHeaders,
-        indexOfAnchors,
         splitedText
       );
       return paragraphElement;
@@ -161,7 +157,6 @@ export class ArticleGenerator {
     i: number,
     indexOfHeader: number,
     indexOfHeaders: number[],
-    indexOfAnchors: number[],
     splitedText: string[]
   ) {
     if (i < indexOfHeaders.length - 1) {
@@ -181,13 +176,12 @@ export class ArticleGenerator {
 
   private createParagraph(text: string) {
     let paragraph;
-    if (text.includes("*"))
+    if (!text.includes("*"))
       paragraph = this.elementsGenerator.generateParagraph(text);
     else {
       let splitedText = text.split("*");
-      let startsWithAnchor: boolean;
+      let startsWithAnchor: boolean = true;
       if (text[0] === "*") startsWithAnchor = false;
-      else startsWithAnchor = true;
       paragraph = this.elementsGenerator.generateParagraphWithAnchors(
         splitedText,
         startsWithAnchor
