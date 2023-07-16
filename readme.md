@@ -8,12 +8,13 @@ Input string and id of element container to generate html article content based 
 - [How to use](#how-to-use)
   - [Paragraphs](#paragraphs)
   - [Headers](#headers)
+  - [Links](#links)
   - [Images](#images)
   - [Example](#example)
 
 ## How to install
 
-1. Create .npmrc file.
+1. Create `.npmrc` file.
 2. Write `@matousek11:registry=https://npm.pkg.github.com` to .npmrc file.
 3. Open terminal in root of your project.
 4. `npm install/yarn add @matousek11/text-to-html-editor`
@@ -35,6 +36,11 @@ To create headers(h2 in HTML) wrap `#` around text.
 Example:
 
 - `#header text#`
+
+### Links
+
+To add links just wrap your link with `*` and your url divide with `|` like this:
+`*URL title|example.com*`
 
 ### Images
 
@@ -60,6 +66,7 @@ Here are images which should be together:
 [/img/image.jpg|Description of image for alt]
 [/img/image.jpg|Description of image for alt]
 <div>
+*Download more images|example.com/download*
 ```
 
 Generated HTML:
@@ -76,5 +83,6 @@ Generated HTML:
         <img src="/img/image.jpg" alt="Description of image for alt"/>
         <img src="/img/image.jpg" alt="Description of image for alt"/>
     </div>
+    <a href="example.com/download">Download more images</a>
 </div>
 ```

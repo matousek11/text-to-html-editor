@@ -98,12 +98,11 @@ export class ArticleGenerator {
   private appendText(newText: string, container: HTMLElement) {
     //find headers
     let splitedText = newText.split(" ");
-    let indexOfHeaders = this.findHeaders(newText);
+    let indexOfHeaders = this.findElements(newText, "#");
+    let indexOfAnchors = this.findElements(newText, "*");
 
     let firstPartOfText = splitedText.slice(0, indexOfHeaders[0]).join(" ");
-    container.appendChild(
-      this.elementsGenerator.generateParagraph(firstPartOfText)
-    );
+    container.appendChild(this.createParagraph(firstPartOfText));
 
     // Append of all text
     indexOfHeaders.forEach((indexOfHeader, i) => {
@@ -111,27 +110,29 @@ export class ArticleGenerator {
         i,
         indexOfHeader,
         indexOfHeaders,
+        indexOfAnchors,
         splitedText
       );
       container.appendChild(elementToAppend);
     });
   }
 
-  private findHeaders(textWithHeaders: string) {
-    let splitedText = textWithHeaders.split(" ");
-    let indexOfHeaders = splitedText
+  private findElements(text: string, searchedLetter: string) {
+    let splitedText = text.split(" ");
+    let indexOfSearchedElements = splitedText
       .map((part, i) => {
-        if (part.includes("#")) return i;
+        if (part.includes(searchedLetter)) return i;
         else return -1;
       })
       .filter((part) => part !== -1);
-    return indexOfHeaders;
+    return indexOfSearchedElements;
   }
 
   private recognizeElements(
     i: number,
     indexOfHeader: number,
     indexOfHeaders: number[],
+    indexOfAnchors: number[],
     splitedText: string[]
   ) {
     if (i % 2 === 0 || i === 0) {
@@ -148,6 +149,7 @@ export class ArticleGenerator {
         i,
         indexOfHeader,
         indexOfHeaders,
+        indexOfAnchors,
         splitedText
       );
       return paragraphElement;
@@ -159,22 +161,38 @@ export class ArticleGenerator {
     i: number,
     indexOfHeader: number,
     indexOfHeaders: number[],
+    indexOfAnchors: number[],
     splitedText: string[]
   ) {
     if (i < indexOfHeaders.length - 1) {
       let nextParagraph = splitedText
         .slice(indexOfHeader + 1, indexOfHeaders[i + 1])
         .join(" ");
-      let paragraphElement =
-        this.elementsGenerator.generateParagraph(nextParagraph);
+      let paragraphElement = this.createParagraph(nextParagraph);
       return paragraphElement;
     } else {
       let nextParagraph = splitedText
         .slice(indexOfHeader + 1, splitedText.length)
         .join(" ");
-      let paragraphElement =
-        this.elementsGenerator.generateParagraph(nextParagraph);
+      let paragraphElement = this.createParagraph(nextParagraph);
       return paragraphElement;
     }
+  }
+
+  private createParagraph(text: string) {
+    let paragraph;
+    if (text.includes("*"))
+      paragraph = this.elementsGenerator.generateParagraph(text);
+    else {
+      let splitedText = text.split("*");
+      let startsWithAnchor: boolean;
+      if (text[0] === "*") startsWithAnchor = false;
+      else startsWithAnchor = true;
+      paragraph = this.elementsGenerator.generateParagraphWithAnchors(
+        splitedText,
+        startsWithAnchor
+      );
+    }
+    return paragraph;
   }
 }

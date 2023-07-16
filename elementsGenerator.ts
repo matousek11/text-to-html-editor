@@ -11,6 +11,28 @@ export class ElementsGenerator {
     paragraph.textContent = text;
     return paragraph;
   }
+  generateParagraphWithAnchors(text: string[], startsWithAnchor: boolean) {
+    let paragraph = document.createElement("p");
+    let isAnchor = (i: number) => i % 2 === 0 || i === 0;
+    if (!startsWithAnchor) isAnchor = (i: number) => i % 2 !== 0 && i !== 0;
+    for (let i = 0; i < text.length; i++) {
+      if (isAnchor(i)) {
+        let splitedText = text[i].split("|");
+        let anchor = this.generateAnchor(splitedText[0], splitedText[1]);
+        paragraph.appendChild(anchor);
+      } else {
+        let textNode = document.createTextNode(text[i]);
+        paragraph.appendChild(textNode);
+      }
+    }
+    return paragraph;
+  }
+  generateAnchor(text: string, url: string) {
+    const anchor = document.createElement("a");
+    anchor.textContent = text;
+    anchor.href = url;
+    return anchor;
+  }
   generateDiv() {
     const div = document.createElement("div");
     return div;
