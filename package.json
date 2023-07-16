@@ -1,6 +1,6 @@
 {
   "name": "@matousek11/text-to-html-editor",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Enter string and id of element, html valid article will be generated.",
   "main": "dist/index.js",
   "author": "Lukas Matousek <matousek1199@gmail.com>",

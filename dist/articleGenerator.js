@@ -139,9 +139,9 @@ class ArticleGenerator {
             paragraph = this.elementsGenerator.generateParagraph(text);
         else {
             let splitedText = text.split("*");
-            let startsWithAnchor = true;
+            let startsWithAnchor = false;
             if (text[0] === "*")
-                startsWithAnchor = false;
+                startsWithAnchor = true;
             paragraph = this.elementsGenerator.generateParagraphWithAnchors(splitedText, startsWithAnchor);
         }
         return paragraph;

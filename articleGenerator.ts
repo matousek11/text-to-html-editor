@@ -180,8 +180,8 @@ export class ArticleGenerator {
       paragraph = this.elementsGenerator.generateParagraph(text);
     else {
       let splitedText = text.split("*");
-      let startsWithAnchor: boolean = true;
-      if (text[0] === "*") startsWithAnchor = false;
+      let startsWithAnchor: boolean = false;
+      if (text[0] === "*") startsWithAnchor = true;
       paragraph = this.elementsGenerator.generateParagraphWithAnchors(
         splitedText,
         startsWithAnchor
