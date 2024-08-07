@@ -5,12 +5,14 @@ export class ElementsGenerator {
     header.textContent = headerText;
     return header;
   }
+
   // return paragraph element
   generateParagraph(text: string) {
     const paragraph = document.createElement("p");
     paragraph.textContent = text;
     return paragraph;
   }
+
   generateParagraphWithAnchors(text: string[], startsWithAnchor: boolean) {
     let paragraph = document.createElement("p");
     let isAnchor = (i: number) => i % 2 === 0 || i === 0;
@@ -27,21 +29,26 @@ export class ElementsGenerator {
     }
     return paragraph;
   }
+
   generateAnchor(text: string, url: string) {
     const anchor = document.createElement("a");
     anchor.textContent = text;
     anchor.href = url;
+    anchor.target = '_blank'
     return anchor;
   }
+
   generateDiv() {
     const div = document.createElement("div");
     return div;
   }
+
   generateDivWithId(id: string) {
     const div = document.createElement("div");
     div.id = id;
     return div;
   }
+
   // return image element
   generateImage(url: string) {
     const image = document.createElement("img");
